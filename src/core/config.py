@@ -51,11 +51,11 @@ class Config:
 
     @property
     def admin_username(self) -> str:
-        if self._admin_username is not None:
-            return self._admin_username
         env_val = os.environ.get("ADMIN_USERNAME")
         if env_val:
             return env_val
+        if self._admin_username is not None:
+            return self._admin_username
         return self._config["global"]["admin_username"]
 
     @admin_username.setter
@@ -273,11 +273,11 @@ class Config:
 
     @property
     def admin_password(self) -> str:
-        if self._admin_password is not None:
-            return self._admin_password
         env_val = os.environ.get("ADMIN_PASSWORD")
         if env_val:
             return env_val
+        if self._admin_password is not None:
+            return self._admin_password
         return self._config["global"]["admin_password"]
 
     @admin_password.setter
