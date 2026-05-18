@@ -1,4 +1,5 @@
 """Configuration management for Flow2API"""
+import os
 import tomli
 from pathlib import Path
 from typing import Dict, Any, Optional
@@ -50,9 +51,11 @@ class Config:
 
     @property
     def admin_username(self) -> str:
-        # If admin_username is set from database, use it; otherwise fall back to config file
         if self._admin_username is not None:
             return self._admin_username
+        env_val = os.environ.get("ADMIN_USERNAME")
+        if env_val:
+            return env_val
         return self._config["global"]["admin_username"]
 
     @admin_username.setter
@@ -259,6 +262,9 @@ class Config:
     # Mutable properties for runtime updates
     @property
     def api_key(self) -> str:
+        env_val = os.environ.get("API_KEY")
+        if env_val:
+            return env_val
         return self._config["global"]["api_key"]
 
     @api_key.setter
@@ -267,9 +273,11 @@ class Config:
 
     @property
     def admin_password(self) -> str:
-        # If admin_password is set from database, use it; otherwise fall back to config file
         if self._admin_password is not None:
             return self._admin_password
+        env_val = os.environ.get("ADMIN_PASSWORD")
+        if env_val:
+            return env_val
         return self._config["global"]["admin_password"]
 
     @admin_password.setter
